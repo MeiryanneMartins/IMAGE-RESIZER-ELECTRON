@@ -1,0 +1,1 @@
+# MeiryanneMartins-IMAGE-RESIZER-ELECTRON
