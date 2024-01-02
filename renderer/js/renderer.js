@@ -5,17 +5,14 @@ const filename = document.querySelector('#filename');
 const heightInput = document.querySelector('#height');
 const widthInput = document.querySelector('#width');
 
-// Load image and show form
 function loadImage(e) {
   const file = e.target.files[0];
 
-  // Check if file is an image
   if (!isFileImage(file)) {
     alertError('Please select an image');
     return;
   }
 
-  // Add current height and width to form using the URL API
   const image = new Image();
   image.src = URL.createObjectURL(file);
   image.onload = function () {
@@ -23,19 +20,16 @@ function loadImage(e) {
     heightInput.value = this.height;
   };
 
-  // Show form, image name and output path
   form.style.display = 'block';
   filename.innerHTML = img.files[0].name;
   outputPath.innerText = path.join(os.homedir(), 'imageresizer');
 }
 
-// Make sure file is an image
 function isFileImage(file) {
   const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
   return file && acceptedImageTypes.includes(file['type']);
 }
 
-// Resize image
 function resizeImage(e) {
   e.preventDefault();
 
@@ -49,7 +43,6 @@ function resizeImage(e) {
     return;
   }
 
-  // Electron adds a bunch of extra properties to the file object including the path
   const imgPath = img.files[0].path;
   const width = widthInput.value;
   const height = heightInput.value;
@@ -61,7 +54,6 @@ function resizeImage(e) {
   });
 }
 
-// When done, show message
 ipcRenderer.on('image:done', () =>
   alertSuccess(`Image resized to ${heightInput.value} x ${widthInput.value}`)
 );
@@ -92,7 +84,6 @@ function alertError(message) {
   });
 }
 
-// File select listener
 img.addEventListener('change', loadImage);
-// Form submit listener
+
 form.addEventListener('submit', resizeImage);
