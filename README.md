@@ -1,1 +1,1 @@
-# MeiryanneMartins-IMAGE-RESIZER-ELECTRON
+Initial study on Eletronjs
